@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MISSION: CHIP</title>
+<title>MISSION: MICROCHIP</title>
 <style>
 :root{
   --red:#cc0000;--red2:#ff2222;--black:#0a0a0f;--dark:#14141c;--dark2:#1e1e2a;--dark3:#28283a;
@@ -17,7 +17,7 @@ body{background:var(--black);color:var(--white);font-family:'Segoe UI',system-ui
 #scene-wrap::-webkit-scrollbar-track{background:transparent;}
 #scene-wrap::-webkit-scrollbar-thumb{background:rgba(204,0,0,.35);border-radius:8px;}
 #scene-wrap::-webkit-scrollbar-thumb:hover{background:rgba(204,0,0,.6);}
-#game{width:100%;height:100vh;display:flex;flex-direction:column;}
+#game{width:100%;height:100vh;height:100dvh;display:flex;flex-direction:column;}
 
 /* TOP BAR */
 #topbar{background:var(--red);height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;flex-shrink:0;box-shadow:0 2px 20px rgba(204,0,0,.5);}
@@ -233,6 +233,14 @@ body{background:var(--black);color:var(--white);font-family:'Segoe UI',system-ui
 @keyframes fadeUpMI{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
 
 #credit-footer{position:fixed;left:0;right:0;bottom:4px;text-align:center;font-size:11.5px;color:rgba(255,255,255,.55);letter-spacing:.3px;pointer-events:none;z-index:40;}
+/* mobile-scroll */
+@media (max-width:640px){
+  .scene{justify-content:flex-start;padding:18px 12px 80px;}
+  #s0,#s8,#smenu,#s10{justify-content:center;}
+  .ttl{margin-bottom:6px;}
+  #scene-wrap{-webkit-overflow-scrolling:touch;}
+  #credit-footer{font-size:11px;}
+}
 </style>
 </head>
 <body>
@@ -248,7 +256,7 @@ body{background:var(--black);color:var(--white);font-family:'Segoe UI',system-ui
       <span id="home-label">Home</span>
     </button>
   </div>
-  <div class="tb-center">MISSION: CHIP</div>
+  <div class="tb-center">MISSION: MICROCHIP</div>
   <div class="tb-right">
     <button class="tb-btn" id="lang-btn" onclick="toggleLang()">中文</button>
   </div>
@@ -273,7 +281,7 @@ body{background:var(--black);color:var(--white);font-family:'Segoe UI',system-ui
       <rect x="50" y="50" width="14" height="14" rx="3" fill="#cc0000" opacity=".6"/>
     </svg>
   </div>
-  <h1 class="ttl" style="font-size:clamp(30px,6vw,56px);">MISSION: <span class="red">CHIP</span></h1>
+  <h1 class="ttl" style="font-size:clamp(30px,6vw,56px);">MISSION: <span class="red">MICROCHIP</span></h1>
   <p class="sub" style="margin-top:8px;font-size:15px;" id="t0-sub">The tiny secret powering everything you love.</p>
   <p style="font-size:13px;color:#555;text-align:center;margin-top:8px;font-style:italic;" id="t0-hook">"Your phone, your car, your console — one hidden secret."</p>
   <div style="display:flex;gap:10px;margin-top:26px;flex-wrap:wrap;justify-content:center;">
@@ -465,6 +473,7 @@ body{background:var(--black);color:var(--white);font-family:'Segoe UI',system-ui
       <svg width="38" height="38" viewBox="0 0 38 38"><circle cx="19" cy="19" r="18" fill="white" stroke="#ddd"/><g stroke="#555" stroke-width=".65" fill="none"><line x1="4" y1="10" x2="34" y2="10"/><line x1="2" y1="16" x2="36" y2="16"/><line x1="2" y1="22" x2="36" y2="22"/><line x1="2" y1="28" x2="36" y2="28"/><line x1="4" y1="34" x2="34" y2="34"/><line x1="10" y1="4" x2="10" y2="34"/><line x1="16" y1="2" x2="16" y2="36"/><line x1="22" y1="2" x2="22" y2="36"/><line x1="28" y1="2" x2="28" y2="36"/><line x1="34" y1="4" x2="34" y2="34"/></g><rect x="14" y="6" width="4" height="4" fill="#cc0000"/><rect x="21" y="6" width="4" height="4" fill="#cc0000"/><rect x="6" y="14" width="4" height="4" fill="#cc0000"/><rect x="28" y="14" width="4" height="4" fill="#cc0000"/><rect x="28" y="22" width="4" height="4" fill="#cc0000"/><rect x="14" y="28" width="4" height="4" fill="#cc0000"/></svg>
       <div><div style="font-size:30px;font-weight:800;color:#cc0000;line-height:1;letter-spacing:-1.5px;font-family:Arial,Helvetica,sans-serif;">tsmc</div></div>
     </div>
+    <p style="font-size:13px;font-weight:700;color:#fff;text-align:center;margin:-2px 0 9px;line-height:1.45;">Taiwan Semiconductor Manufacturing Company<br><span style="font-size:11.5px;color:var(--gray);font-weight:500;">台灣積體電路製造股份有限公司</span></p>
     <p class="sub" style="font-size:12px;" id="t8-tsmc">Founded by <strong style="color:var(--red);">Morris Chang 張忠謀</strong> in 1987.<br>Makes chips for Apple, NVIDIA, AMD, Qualcomm...<br><em>One company. One island. Powers the whole world.</em></p>
   </div>
   <button class="btn btn-gold" style="margin-top:16px;" onclick="goScene(9)">★ &nbsp;<span id="t8-btn">You're the CEO — decide! →</span></button>
@@ -579,6 +588,7 @@ function goScene(n){
   sceneHistory.push(n);if(sceneHistory.length>20)sceneHistory.shift();
   document.getElementById('prog-fill').style.width=(typeof n==='number'?((n/(TOTAL-1))*100):0)+'%';
   document.getElementById('scene-wrap').scrollTop=0;
+  {const cf=document.getElementById('credit-footer');if(cf)cf.style.display=(n===0||n===10)?'block':'none';}
   const isTitle=(n===0),isMenu=(n==='menu');
   document.getElementById('back-btn').style.display=isTitle?'none':'flex';
   document.getElementById('home-btn').style.display=(isTitle||isMenu)?'none':'flex';
