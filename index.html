@@ -140,9 +140,10 @@ body{background:var(--black);color:var(--white);font-family:'Segoe UI',system-ui
 #step-bank{display:flex;flex-wrap:wrap;gap:10px;min-height:44px;margin-bottom:10px;justify-content:center;}
 #step-slots{display:flex;flex-wrap:wrap;gap:10px;min-height:110px;padding:12px;border:2px dashed rgba(255,255,255,.15);border-radius:12px;align-items:flex-start;justify-content:flex-start;transition:all .2s;}
 #step-slots.drag-over{border-color:var(--red);background:rgba(204,0,0,.05);}
-.step-chip{background:var(--dark3);border:2px solid rgba(255,255,255,.12);border-radius:12px;padding:11px 9px;font-size:12.5px;font-weight:700;cursor:grab;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:4px;width:106px;text-align:center;touch-action:none;line-height:1.3;position:relative;}
+.step-chip{background:var(--dark3);border:2px solid rgba(255,255,255,.12);border-radius:12px;padding:11px 9px;font-size:12.5px;font-weight:700;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:4px;width:106px;text-align:center;touch-action:none;line-height:1.3;position:relative;}
 .step-chip:hover{border-color:rgba(255,255,255,.35);transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.4);}
 .step-chip .step-hint{font-size:10.5px;color:var(--gray);font-weight:400;line-height:1.3;margin-top:2px;}
+.step-chip:active{transform:scale(.95);}
 .step-chip.dragging{opacity:.3;cursor:grabbing;}
 .step-chip.placed-correct{border-color:var(--green)!important;background:rgba(34,197,94,.1)!important;box-shadow:0 0 10px rgba(34,197,94,.3);}
 .step-chip.placed-wrong{border-color:var(--danger)!important;animation:shake .3s;}
@@ -413,7 +414,7 @@ body{background:var(--black);color:var(--white);font-family:'Segoe UI',system-ui
   <div class="fab-wrap">
     <div class="fab-msg">
       <div class="sender" id="fab-sender">📡 TSMC FAB 18 — INCOMING MESSAGE</div>
-      <span id="fab-intro-msg">Welcome, Engineer! Apple just ordered 50 MILLION chips. Drag the steps into the right order, starting from step 1. Drop a wrong step and it bounces back so you can try again! 🏭</span>
+      <span id="fab-intro-msg">Welcome, Engineer! Apple just ordered 50 MILLION chips. Tap (or drag) the steps into the right order, starting from step 1. A wrong step bounces back so you can try again! 🏭</span>
     </div>
     <div class="fab-board">
       <div class="fab-label" id="fab-bank-lbl">STEP BANK — drag from here:</div>
@@ -529,7 +530,7 @@ const TXT={en:{
   'pq2':'What is it made of?','pa2':'Silicon — the same element found in ordinary sand! The whole world runs on glorified sand!',
   'pq3':'Who uses chips?','pa3':'Every phone, car, console, hospital machine, satellite, and AI. No chip = none of these exist!',
   'panel-count':'0 / 4 revealed — tap all panels!',
-  'fab-sender':'📡 TSMC FAB 18 — INCOMING MESSAGE','fab-intro-msg':'Welcome, Engineer! Apple just ordered 50 MILLION chips. Drag the steps into the right order, starting from step 1. Drop a wrong step and it bounces back so you can try again! 🏭',
+  'fab-sender':'📡 TSMC FAB 18 — INCOMING MESSAGE','fab-intro-msg':'Welcome, Engineer! Apple just ordered 50 MILLION chips. Tap (or drag) the steps into the right order, starting from step 1. A wrong step bounces back so you can try again! 🏭',
   'fab-bank-lbl':'STEP BANK — drag from here:','fab-slots-lbl':'YOUR ORDER → drop the next correct step here:','t5-btn':'Who needs chips? →',
   't6-title':'Who buys chips? 📊','t6-sub':'The biggest brands all depend on one company. Click each!','t6-btn':'So who MAKES them? →',
   't7-title':'The whole world needs chips. 🌍','t7-sub':'Click each region to see how it depends on chips.','t7-btn':'All roads lead to... →','map-count':'Click all 6 regions',
@@ -559,7 +560,7 @@ const TXT={en:{
   'pq2':'它是什麼做的？','pa2':'矽——就是普通沙子裡的元素！整個世界靠提純的沙子運轉！(Made from sand! 沙子！)',
   'pq3':'誰在用晶片？','pa3':'每支手機、汽車、主機、醫療設備、衛星和AI。沒有晶片就沒有這些！(No chip = nothing exists!)',
   'panel-count':'0 / 4 已揭示——點擊全部面板！',
-  'fab-sender':'📡 台積電 18廠——收到訊息','fab-intro-msg':'歡迎，工程師！蘋果剛訂購5000萬顆晶片。從第一步開始，依序把步驟拖到正確位置。放錯的步驟會自動退回，再試一次！🏭',
+  'fab-sender':'📡 台積電 18廠——收到訊息','fab-intro-msg':'歡迎，工程師！蘋果剛訂購5000萬顆晶片。從第一步開始，點選（或拖曳）步驟到正確位置。放錯的步驟會自動退回，再試一次！🏭',
   'fab-bank-lbl':'步驟庫——從這裡拖：','fab-slots-lbl':'你的順序→把正確的下一步放這裡：','t5-btn':'誰需要晶片？→',
   't6-title':'誰在買晶片？📊','t6-sub':'全球最大品牌都依賴一家公司。點擊每個！','t6-btn':'那誰在製造它們？→',
   't7-title':'全世界都需要晶片。🌍','t7-sub':'點擊每個地區，看它如何依賴晶片。','t7-btn':'所有道路都通向……→','map-count':'點擊全部6個地區',
@@ -842,7 +843,7 @@ const DEN=['Add Water 💧','Use Plastic 🧱','Skip Step ⏭️','Random Heat �
 const DZH=['加水 💧','用塑膠 🧱','跳過步驟 ⏭️','隨機加熱 🔥'];
 const CRISIS_EN={title:'🚨 DUST PARTICLE DETECTED on wafer!',opts:['A. 🗑️ Abort — throw out the wafer','B. 🫧 Emergency clean room purge','C. 😬 Ignore it and continue'],results:['❌ Wafer scrapped. $50K wasted. But this was actually safer — a contaminated chip could crash inside a hospital machine.','✅ Crisis solved! TSMC engineers train for exactly this. The clean room is purged and production resumes perfectly.','❌ The chip passes manufacturing but fails quality testing. Rejected. Nanometer-scale contamination ruins transistors.'],correct:1};
 const CRISIS_ZH={title:'🚨 偵測到灰塵顆粒在晶圓上！',opts:['A. 🗑️ 中止——丟棄晶圓','B. 🫧 緊急無塵室淨化','C. 😬 忽略並繼續'],results:['❌ 晶圓報廢，損失5萬美元。但這實際上更安全——受污染的晶片可能在醫療機器裡崩潰。','✅ 危機解決！台積電工程師正是為此訓練。無塵室淨化後，生產完美繼續。','❌ 晶片通過製造但未通過品質測試。被退件。奈米級污染破壞了電晶體。'],correct:1};
-let bStep=0,dragSrc=null,touchEl=null,touchClone=null,touchOffX=0,touchOffY=0;
+let bStep=0,dragSrc=null,touchEl=null,touchClone=null,touchOffX=0,touchOffY=0,touchStartX=0,touchStartY=0;
 function initFab(){
   bStep=0;
   document.getElementById('fab-feedback').innerHTML='';document.getElementById('crisis-area').innerHTML='';document.getElementById('s5-next').style.display='none';
@@ -859,6 +860,7 @@ function createStepChip(s){
   el.draggable=true;el.dataset.name=s.name;el.dataset.icon=s.icon;el.dataset.desc=s.desc;
   el.addEventListener('dragstart',e=>{if(el.classList.contains('placed-correct')){e.preventDefault();return;}dragSrc=el;el.classList.add('dragging');e.dataTransfer.effectAllowed='move';});
   el.addEventListener('dragend',()=>el.classList.remove('dragging'));
+  el.addEventListener('click',()=>{if(el._moved)return;if(!el.classList.contains('placed-correct'))attemptPlace(el);});
   el.addEventListener('touchstart',touchStart,{passive:true});
   el.addEventListener('touchmove',touchMove,{passive:false});
   el.addEventListener('touchend',touchEnd);
@@ -866,7 +868,7 @@ function createStepChip(s){
 }
 function updateFabProg(){
   const n=document.getElementById('step-slots').children.length;
-  document.getElementById('fab-prog').textContent=lang==='en'?`${n} of 6 steps placed — drag the correct next step.`:`已放 ${n} / 6 步——拖入正確的下一步。`;
+  document.getElementById('fab-prog').textContent=lang==='en'?`${n} of 6 steps placed — tap the correct next step.`:`已放 ${n} / 6 步——點選正確的下一步。`;
 }
 // Accept a chip into the slots ONLY if it's the next correct step; otherwise auto-return it to the bank.
 function attemptPlace(chip){
@@ -919,9 +921,9 @@ function pickCrisis(i){
   if(i===c.correct){setTimeout(()=>{document.getElementById('fab-feedback').innerHTML=`<span style="color:var(--green);font-weight:800">${lang==='en'?'🎉 Chip complete! Shipping to Apple right now.':'🎉 晶片完成！正在出貨給蘋果。'}</span>`;document.getElementById('s5-next').style.display='inline-flex';},600);}
   else{setTimeout(()=>{document.querySelectorAll('.crisis-btn').forEach(b=>{b.style.opacity='1';b.style.borderColor='';});},1200);}
 }
-function touchStart(e){const el=e.currentTarget;if(el.classList.contains('placed-correct'))return;touchEl=el;const r=touchEl.getBoundingClientRect();touchOffX=e.touches[0].clientX-r.left;touchOffY=e.touches[0].clientY-r.top;touchClone=touchEl.cloneNode(true);touchClone.style.cssText=`position:fixed;z-index:9999;opacity:.85;pointer-events:none;width:${r.width}px;border-radius:12px;`;document.body.appendChild(touchClone);}
-function touchMove(e){e.preventDefault();if(!touchClone)return;touchClone.style.left=(e.touches[0].clientX-touchOffX)+'px';touchClone.style.top=(e.touches[0].clientY-touchOffY)+'px';}
-function touchEnd(e){if(!touchClone||!touchEl){touchEl=null;return;}document.body.removeChild(touchClone);touchClone=null;const t=e.changedTouches[0];const slots=document.getElementById('step-slots');const sr=slots.getBoundingClientRect();if(t.clientX>=sr.left&&t.clientX<=sr.right&&t.clientY>=sr.top&&t.clientY<=sr.bottom){attemptPlace(touchEl);}touchEl=null;}
+function touchStart(e){const el=e.currentTarget;if(el.classList.contains('placed-correct'))return;touchEl=el;el._moved=false;const t=e.touches[0];touchStartX=t.clientX;touchStartY=t.clientY;const r=el.getBoundingClientRect();touchOffX=t.clientX-r.left;touchOffY=t.clientY-r.top;}
+function touchMove(e){if(!touchEl)return;const t=e.touches[0];const dx=t.clientX-touchStartX,dy=t.clientY-touchStartY;if(!touchClone){if(Math.abs(dx)<9&&Math.abs(dy)<9)return;touchEl._moved=true;const r=touchEl.getBoundingClientRect();touchClone=touchEl.cloneNode(true);touchClone.style.cssText=`position:fixed;z-index:9999;opacity:.9;pointer-events:none;width:${r.width}px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.5);`;document.body.appendChild(touchClone);}e.preventDefault();touchClone.style.left=(t.clientX-touchOffX)+'px';touchClone.style.top=(t.clientY-touchOffY)+'px';}
+function touchEnd(e){if(touchClone){document.body.removeChild(touchClone);touchClone=null;const t=e.changedTouches[0];const slots=document.getElementById('step-slots');const sr=slots.getBoundingClientRect();if(t.clientX>=sr.left&&t.clientX<=sr.right&&t.clientY>=sr.top&&t.clientY<=sr.bottom){attemptPlace(touchEl);}}touchEl=null;}
 
 // S7 MAP
 let litDots=new Set(),activeMapPop=null;
